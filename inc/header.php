@@ -31,30 +31,29 @@ session_start();
       <div class="d-flex">
         <?php
 
-        if (isset($_SESSION['customerLogin']) && $_SESSION['customerLogin'] == true) {
-          echo <<<data
-                <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                        $_SESSION[customerName]
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-                        <li><a class="dropdown-item" href="booking.php">Booking</a></li>
-                        <li><a class="dropdown-item" href="admin/logouts.php">Logout</a></li>
-                    </ul>
-                </div>
-                data;
+        if (isset($_SESSION['customerLogin']) && $_SESSION['customerLogin'] == true) { ?>
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+              <?php echo $_SESSION['customerName']; ?>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+              <li><a class="dropdown-item" href="booking.php">Booking</a></li>
+              <li><a class="dropdown-item" href="admin/logout.php">Logout</a></li>
+            </ul>
+          </div>
+        <?php
         } else {
-          echo <<<data
-                <form class="d-flex" role="search">
-                <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-3" data-bs-toggle="modal" data-bs-target="#LoginModal">
-                    Login
-                </button>
-                <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-3" data-bs-toggle="modal" data-bs-target="#registerModal">
-                    Register
-                </button>
-                </form>
-                data;
+        ?>
+          <form class="d-flex" role="search">
+            <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-3" data-bs-toggle="modal" data-bs-target="#LoginModal">
+              Login
+            </button>
+            <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-3" data-bs-toggle="modal" data-bs-target="#registerModal">
+              Register
+            </button>
+          </form>
+        <?php
         }
         ?>
 
@@ -157,8 +156,6 @@ session_start();
     </div>
   </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function() {
     $('#registerForm').on('submit', function(e) {
