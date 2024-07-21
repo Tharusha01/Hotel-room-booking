@@ -9,49 +9,53 @@ if ((isset($_SESSION['adminLogin']) && $_SESSION['adminLogin'] == true)) {
     redirect('dashboard.php');
 }
 ?>
-
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login Panel</title>
-</head>
-<?php require('inc/links.php') ?>
-
-<body class="bg-light">
+    <title>Admin Panel</title>
+    <?php require('inc/links.php') ?>
     <style>
-        div.login-form {
+        .login-form {
             position: absolute;
-            top: 50%;
             left: 50%;
+            top: 50%;
             transform: translate(-50%, -50%);
             width: 400px;
         }
     </style>
+</head>
+<?php require('inc/links.php') ?>
 
-    <div class="login-form text-center rounded bg-white shadow overflow-hidden">
+<body class="bg-light">
+
+
+    <div class="login-form text-center rounded shadow overflow-hidden bg-white">
         <form method="POST">
-            <h4 class="bg-dark text-center text-white py-2">Admin Login Panel</h4>
-            <div class="p-4">
+            <h5 class="text-white bg-dark fs-4 py-3 bt">Admin Login Panel</h5>
+            <div class="p-4 bt">
                 <div class="mb-3">
-                    <input name="admin_name" required type="text" class="form-control shadow-none text-center" placeholder="Admin Name" />
+                    <input name="admin_name" required type="text" class="form-control shadow-none text-center" placeholder="Username">
                 </div>
+
                 <div class="mb-4">
-                    <input name="admin_pass" required type="password" class="form-control shadow-none text-center " placeholder="Password" />
+                    <input name="admin_pass" required type="password" class="form-control shadow-none text-center" placeholder="Password">
                 </div>
-                <button name="admin_login" type="submit" class="btn text-white custom-bg shadow-none text-cente">Login</button>
+
+                <button name="login" type="submit" class="btn btn-dark text-white shadow-none ">
+                    LOGIN
+                </button>
             </div>
             <a href="register.php">User Signup</a>
         </form>
     </div>
 
     <?php
-
-    if (isset($_POST['admin_login'])) {
+    if (isset($_POST['login'])) {
         require('inc/db_config.php'); // Move the require inside the if block if needed
+
         $frm_data = filteration($_POST);
 
         $query = "SELECT * FROM `users` WHERE `email` = ? AND `role` = 'admin'";
@@ -73,7 +77,6 @@ if ((isset($_SESSION['adminLogin']) && $_SESSION['adminLogin'] == true)) {
             alert('error', 'Login Failed - Invalid Credentials');
         }
     }
-
     ?>
 
     <?php require('inc/scripts.php') ?>
