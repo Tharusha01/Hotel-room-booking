@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 $hname = "localhost";
 $uname = "root";
-$pass = "reshan123";
+$pass = "";
 $dbname = "booking_db";
 
 $con = mysqli_connect($hname, $uname, $pass, $dbname);
