@@ -1,44 +1,115 @@
 <?php
-$hname = "localhost";
-$uname = "root";
-$pass = ""; // Leave it empty for no password
-$dbname = "hbwebsite";
 
-$con = mysqli_connect($hname, $uname, $pass, $dbname);
+$hostname="localhost";
+$username="root";
+$password="";
+$db="hbwebsite";
 
-if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
+$con = mysqli_connect($hostname,$username,$password,$db);
+
+if(!$con){
+    die("cannot connect to the database".mysqli_connect_error());
+}
+// else{
+//     echo("connected successfully");
+// }
+
+function filteration($data){
+    foreach($data as $key=>$value){
+        $value = trim($value);
+        $value = stripslashes($value);
+        $value = strip_tags($value);
+        $value = htmlspecialchars($value);
+
+        $data[$key] = $value;
+    }
+    return $data;
 }
 
-if (!function_exists('filteration')) {
-    function filteration($data) {
-        foreach ($data as $key => $value) {
-            $data[$key] = trim($value);
-            $data[$key] = stripslashes($value);
-            $data[$key] = htmlspecialchars($value);
+function selectAll($table){
+    $con = $GLOBALS['con'];
+    $res=mysqli_query($con,"SELECT * FROM $table");
+    return $res;
+}
+
+function select($sql,$values,$datatypes){
+    $con= $GLOBALS["con"];
+    if($stmt=mysqli_prepare($con,$sql)){
+        mysqli_stmt_bind_param($stmt,$datatypes,...$values);
+        if(mysqli_stmt_execute($stmt)){
+            $res= mysqli_stmt_get_result($stmt);
+            mysqli_stmt_close($stmt);
+            return $res;
         }
-        return $data;
+        else{
+            mysqli_stmt_close($stmt);
+            die("Query cannot be executed -SELECT");
+        }
+    }
+    else{
+        die("Query cannot be prepared -SELECT");
+    }
+}
+
+function update($sql,$values,$datatypes){
+    $con= $GLOBALS["con"];
+    if($stmt=mysqli_prepare($con,$sql)){
+        mysqli_stmt_bind_param($stmt,$datatypes,...$values);
+        if(mysqli_stmt_execute($stmt)){
+            $res= mysqli_stmt_affected_rows($stmt);
+            mysqli_stmt_close($stmt);
+            return $res;
+        }
+        else{
+            mysqli_stmt_close($stmt);
+            die("Query cannot be executed -UPDATE");
+        }
+    }
+    else{
+        die("Query cannot be prepared -UPDATE");
     }
 }
 
 
-if (!function_exists('select')) {
-    function select($sql, $value, $datatypes) {
-        $con = $GLOBALS['con'];
-        if ($stmt = mysqli_prepare($con, $sql)) {
-            mysqli_stmt_bind_param($stmt, $datatypes, ...$value); // PHP splat operator ...
-            if (mysqli_stmt_execute($stmt)) {
-                $res = mysqli_stmt_get_result($stmt);
-                mysqli_stmt_close($stmt);
-                return $res;
-            } else {
-                mysqli_stmt_close($stmt);
-                die("Query failed: " . mysqli_error($con));
-            }
+function insert($sql, $values, $datatypes)
+{
+    $con = $GLOBALS["con"];
+    if ($stmt = mysqli_prepare($con, $sql)) {
+        mysqli_stmt_bind_param($stmt, $datatypes, ...$values);
+        if (mysqli_stmt_execute($stmt)) {
+            $res = mysqli_stmt_affected_rows($stmt);
+            mysqli_stmt_close($stmt);
+            return $res;
         } else {
-            die("Query preparation failed: " . mysqli_error($con));
+            mysqli_stmt_close($stmt);
+            die("Query cannot be executed -INSERT");
         }
+    } 
+    else 
+    {
+        die("Query cannot be prepared -INSERT");
     }
 }
+
+function delete($sql, $values, $datatypes)
+{
+    $con = $GLOBALS['con'];
+    if ($stmt = mysqli_prepare($con, $sql)) {
+        mysqli_stmt_bind_param($stmt, $datatypes, ...$values);
+        if (mysqli_stmt_execute($stmt)) {
+            $res = mysqli_stmt_affected_rows($stmt);
+            mysqli_stmt_close($stmt);
+            return $res;
+        } else {
+            mysqli_stmt_close($stmt);
+            die("Query cannot be executed -DELETE");
+        }
+    } else {
+        die("Query cannot be prepared -DELETE");
+    }
+}
+
+
+
 
 ?>
