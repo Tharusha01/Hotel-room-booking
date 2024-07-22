@@ -11,10 +11,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $adult = filterationData($_POST['adult']);
     $children = filterationData($_POST['children']);
     $desc = filterationData($_POST['desc']);
-    $query = "INSERT INTO `rooms`(`name`, `area`, `price`, `quantity`, `adult`, `children`, `description`) VALUES (?,?,?,?,?,?,?)";
-    $values = [$name, $area, $price, $quantity, $adult, $children, $desc];
+    $image = $_FILES['image'];
 
-    if (insert($query, $values, 'siiiiis')) {
+    if ($image['error'] == 0) {
+        $image_tmp = $image['tmp_name'];
+        $image_name = $image['name'];
+        $image_type = $image['type'];
+        $image_size = $image['size'];
+
+        if ($image_type == 'image/jpeg' || $image_type == 'image/png') {
+            if ($image_size <= 1024 * 1024) { // 1MB limit
+                $upload_dir = 'uploads/';
+                $image_path = $upload_dir . $image_name;
+                move_uploaded_file($image_tmp, $image_path);
+
+                $query = "INSERT INTO `rooms`(`name`, `area`, `price`, `quantity`, `adult`, `children`, `description`, `image`) VALUES (?,?,?,?,?,?,?,?)";
+                $values = [$name, $area, $price, $quantity, $adult, $children, $desc, $image_path];
+            } else {
+                $_SESSION['message'] = 'Image size exceeds 1MB limit';
+            }
+        } else {
+            $_SESSION['message'] = 'Invalid image type';
+        }
+    } else {
+        $_SESSION['message'] = 'Error uploading image';
+    }
+
+    if (insert($query, $values, 'siiiiiss')) {
         $_SESSION['message'] = 'Room Added Successfully';
         header('Location: rooms.php');
     } else {
@@ -66,6 +89,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="mb-3">
                         <label class="form-label">Description</label>
                         <textarea name="desc" rows="4" class="form-control shadow-none" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Image</label>
+                        <input type="file" name="image" class="form-control shadow-none" required>
                     </div>
                     <button type="submit" class="btn btn-success">Submit</button>
                 </form>

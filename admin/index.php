@@ -54,7 +54,6 @@ if ((isset($_SESSION['adminLogin']) && $_SESSION['adminLogin'] == true)) {
 
     <?php
     if (isset($_POST['login'])) {
-        require('inc/db_config.php'); // Move the require inside the if block if needed
 
         $frm_data = filteration($_POST);
 

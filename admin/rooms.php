@@ -8,10 +8,12 @@ $res = selectAll('rooms');
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php require('inc/links.php'); ?>
     <title>Admin Panel - Rooms</title>
 </head>
+
 <body class="bg-light">
     <?php require('inc/header.php'); ?>
 
@@ -31,11 +33,14 @@ $res = selectAll('rooms');
                                 <th>Quantity</th>
                                 <th>Adult</th>
                                 <th>Children</th>
+                                <th>Image</th>
                                 <th>Actions</th>
+
+
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while($row = mysqli_fetch_assoc($res)) { ?>
+                            <?php while ($row = mysqli_fetch_assoc($res)) { ?>
                                 <tr>
                                     <td><?php echo $row['id']; ?></td>
                                     <td><?php echo $row['name']; ?></td>
@@ -44,6 +49,13 @@ $res = selectAll('rooms');
                                     <td><?php echo $row['quantity']; ?></td>
                                     <td><?php echo $row['adult']; ?></td>
                                     <td><?php echo $row['children']; ?></td>
+                                    <td>
+                                        <?php if (!empty($row['image'])) { ?>
+                                            <img src="<?php echo $row['image']; ?>" alt="<?php echo $row['name']; ?>" width="50" height="50">
+                                        <?php } else { ?>
+                                            <p>No image</p>
+                                        <?php } ?>
+                                    </td>
                                     <td>
                                         <a href="edit_room.php?id=<?php echo $row['id']; ?>" class="btn btn-warning">Edit</a>
                                         <a href="delete_room.php?id=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this room?');">Delete</a>
@@ -59,4 +71,5 @@ $res = selectAll('rooms');
 
     <?php require('inc/scripts.php'); ?>
 </body>
+
 </html>
