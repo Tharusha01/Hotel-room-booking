@@ -8,7 +8,7 @@
   <?php require('inc/links.php'); ?>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-   
+
   <style>
     /*  custom styles here    */
 
@@ -32,32 +32,33 @@
 <body class="bg-light">
 
 
-<?php require('inc/header.php'); ?>
-
+  <?php
+  require('inc/header.php');
+  $query = $con->prepare("SELECT * FROM `rooms` ORDER BY `id` DESC LIMIT 3");
+  $query->execute();
+  $result = $query->get_result();
+  
+  $rooms = [];
+  while ($row = $result->fetch_assoc()) {
+      $rooms[] = $row;
+  }
+  ?>
 
   <!-- Carousel picture pannel -->
   <div class="container-fluid">
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <img
-            src="https://github.com/tj-webdev/Hotel-Booking-Website-Assets/blob/main/images/carousel/IMG_40905.png?raw=true"
-            class="img-fluid" />
+          <img src="https://github.com/tj-webdev/Hotel-Booking-Website-Assets/blob/main/images/carousel/IMG_40905.png?raw=true" class="img-fluid" />
         </div>
         <div class="swiper-slide">
-          <img
-            src="https://github.com/tj-webdev/Hotel-Booking-Website-Assets/blob/main/images/carousel/IMG_99736.png?raw=true"
-            class="img-fluid" />
+          <img src="https://github.com/tj-webdev/Hotel-Booking-Website-Assets/blob/main/images/carousel/IMG_99736.png?raw=true" class="img-fluid" />
         </div>
         <div class="swiper-slide">
-          <img
-            src="https://github.com/tj-webdev/Hotel-Booking-Website-Assets/blob/main/images/carousel/IMG_62045.png?raw=true"
-            class="img-fluid" />
+          <img src="https://github.com/tj-webdev/Hotel-Booking-Website-Assets/blob/main/images/carousel/IMG_62045.png?raw=true" class="img-fluid" />
         </div>
         <div class="swiper-slide">
-          <img
-            src="https://github.com/tj-webdev/Hotel-Booking-Website-Assets/blob/main/images/carousel/IMG_15372.png?raw=true"
-            class="img-fluid" />
+          <img src="https://github.com/tj-webdev/Hotel-Booking-Website-Assets/blob/main/images/carousel/IMG_15372.png?raw=true" class="img-fluid" />
         </div>
       </div>
     </div>
@@ -113,16 +114,16 @@
   <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">Our Rooms</h2>
   <div class="container">
     <div class="row justify-content-start">
+    <?php foreach ($rooms as $room) { ?>
       <div class="col-lg-4 col-md-6 my-3">
         <!-- Card 1 -->
         <div class="card border-0 shadow" style="max-width: 310px; margin: auto">
           <!-- Card Image -->
-          <img src="https://github.com/tj-webdev/Hotel-Booking-Website-Assets/blob/main/images/rooms/1.jpg?raw=true"
-            class="card-img-top" style="height: 200px; object-fit: cover" />
+          <img src="<?php echo filterationData($room['image']); ?>?raw=true" class="card-img-top" style="height: 200px; object-fit: cover" />
           <div class="card-body">
             <!-- Card Title -->
-            <h5 class="card-title">Simple Room</h5>
-            <h6>Rs.2500 per night</h6>
+            <h5 class="card-title"><?php echo filterationData($room['name']); ?></h5>
+            <h6>Rs.<?php echo filterationData($room['price']); ?>  per night</h6>
             <!-- Features -->
             <div class="features mb-4">
               <h6 class="mb-2">Features</h6>
@@ -141,13 +142,13 @@
                 <span class="badge rounded-pill bg-light text-dark text-wrap">Room heater</span>
               </div>
             </div>
-              <!-- Guests-->
-              <div class="facilities mb-4">
+            <!-- Guests-->
+            <div class="facilities mb-4">
               <div class="features mb-4">
                 <h6 class="mb-2">Guests</h6>
-                <span class="badge rounded-pill bg-light text-dark text-wrap">5 adults</span>
-                <span class="badge rounded-pill bg-light text-dark text-wrap">4 Children</span>
-                
+                <span class="badge rounded-pill bg-light text-dark text-wrap"><?php echo filterationData($room['adult']); ?> adults</span>
+                <span class="badge rounded-pill bg-light text-dark text-wrap"><?php echo filterationData($room['children']); ?> Children</span>
+
               </div>
             </div>
             <!-- Rating -->
@@ -167,124 +168,16 @@
           </div>
         </div>
       </div>
-      <!-- Repeat the same structure for other cards -->
-      <div class="col-lg-4 col-md-6 my-3">
-  <div class="card border-0 shadow" style="max-width: 310px; margin: auto">
-    <!-- Card Image -->
-    <img src="https://github.com/tj-webdev/Hotel-Booking-Website-Assets/blob/main/images/rooms/1.jpg?raw=true"
-      class="card-img-top" style="height: 200px; object-fit: cover" />
-    <div class="card-body">
-      <!-- Card Title -->
-      <h5 class="card-title">Simple Room</h5>
-      <h6>Rs.2500 per night</h6>
-      <!-- Features -->
-      <div class="features mb-4">
-        <h6 class="mb-2">Features</h6>
-        <span class="badge rounded-pill bg-light text-dark text-wrap">2 rooms</span>
-        <span class="badge rounded-pill bg-light text-dark text-wrap">1 bathroom</span>
-        <span class="badge rounded-pill bg-light text-dark text-wrap">1 Balcony</span>
-        <span class="badge rounded-pill bg-light text-dark text-wrap">3 Sofa</span>
-      </div>
-      <!-- Facilities -->
-      <div class="facilities mb-4">
-        <div class="features mb-4">
-          <h6 class="mb-2">Facilities</h6>
-          <span class="badge rounded-pill bg-light text-dark text-wrap">Wifi</span>
-          <span class="badge rounded-pill bg-light text-dark text-wrap">Television</span>
-          <span class="badge rounded-pill bg-light text-dark text-wrap">AC</span>
-          <span class="badge rounded-pill bg-light text-dark text-wrap">Room heater</span>
-        </div>
-      </div>
-      <!-- Guests -->
-      <div class="facilities mb-4">
-        <div class="features mb-4">
-          <h6 class="mb-2">Guests</h6>
-          <span class="badge rounded-pill bg-light text-dark text-wrap">5 adults</span>
-          <span class="badge rounded-pill bg-light text-dark text-wrap">2 adults</span>
-        </div>
-      </div>
-      <!-- Rating -->
-      <div class="rating mb-4">
-        <h6>Rating</h6>
-        <h6 class="mb-1 text-warning"></h6>
-        <i class="bi bi-star-fill text-warning"></i>
-        <i class="bi bi-star-fill text-warning"></i>
-        <i class="bi bi-star-fill text-warning"></i>
-        <i class="bi bi-star-fill text-warning"></i>
-      </div>
-      <!-- Buttons -->
-      <div class="d-flex justify-content-between">
-        <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
-        <a href="#" class="btn btn-sm btn-outline-dark shadow-none">More details</a>
+      <?php } ?>
+    </div>
+
+
+
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-4 col-md-6 text-center">
+        <a href="#" class="btn btn-sm btn-outline-dark rounded-0 shadow-none">More Rooms</a>
       </div>
     </div>
-  </div>
-</div>
-
-      <!-- Repeat the same structure for other cards -->
-      <div class="col-lg-4 col-md-6 my-3">
-        <div class="card border-0 shadow" style="max-width: 310px; margin: auto">
-          <!-- Card Image -->
-          <img src="https://github.com/tj-webdev/Hotel-Booking-Website-Assets/blob/main/images/rooms/1.jpg?raw=true"
-            class="card-img-top" style="height: 200px; object-fit: cover" />
-          <div class="card-body">
-            <!-- Card Title -->
-            <h5 class="card-title">Simple Room</h5>
-            <h6>Rs.2500 per night</h6>
-            <!-- Features -->
-            <div class="features mb-4">
-              <h6 class="mb-2">Features</h6>
-              <span class="badge rounded-pill bg-light text-dark text-wrap">2 rooms</span>
-              <span class="badge rounded-pill bg-light text-dark text-wrap">1 bathroom</span>
-              <span class="badge rounded-pill bg-light text-dark text-wrap">1 Balcony</span>
-              <span class="badge rounded-pill bg-light text-dark text-wrap">3 Sofa</span>
-            </div>
-            <!-- Facilities -->
-            <div class="facilities mb-4">
-              <div class="features mb-4">
-                <h6 class="mb-2">Facilities</h6>
-                <span class="badge rounded-pill bg-light text-dark text-wrap">Wifi</span>
-                <span class="badge rounded-pill bg-light text-dark text-wrap">Television</span>
-                <span class="badge rounded-pill bg-light text-dark text-wrap">AC</span>
-                <span class="badge rounded-pill bg-light text-dark text-wrap">Room heater</span>
-              </div>
-            </div>
-             <!-- Guests-->
-             <div class="facilities mb-4">
-              <div class="features mb-4">
-                <h6 class="mb-2">Guests</h6>
-                <span class="badge rounded-pill bg-light text-dark text-wrap">5 adults</span>
-                <span class="badge rounded-pill bg-light text-dark text-wrap">4 Children</span>
-                
-              </div>
-            <!-- Rating -->
-            <div class="rating mb-4">
-              <h6>Rating</h6>
-              <h6 class="mb-1 text-warning"></h6>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-            </div>
-            <!-- Buttons -->
-            <div class="d-flex justify-content-between">
-              <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
-              <a href="#" class="btn btn-sm btn-outline-dark shadow-none">More details</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-
-
-  <div class="row justify-content-center mt-5">
-    <div class="col-lg-4 col-md-6 text-center">
-      <a href="#" class="btn btn-sm btn-outline-dark rounded-0 shadow-none">More Rooms</a>
-    </div>
-  </div>
   </div>
   <!-- our facilities -->
   <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">Our Facilities</h2>
@@ -398,9 +291,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 md-8 p-4 mb-lg-0 mb-3 bg-white rounded">
-        <iframe class="w-100 rounded" height="320"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15871.507606817215!2d80.25435445000001!3d6.0116356500000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae172f162bf926d%3A0xc0444c5e8377446c!2sUnawatuna!5e0!3m2!1sen!2slk!4v1710221753294!5m2!1sen!2slk"
-          style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe class="w-100 rounded" height="320" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15871.507606817215!2d80.25435445000001!3d6.0116356500000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae172f162bf926d%3A0xc0444c5e8377446c!2sUnawatuna!5e0!3m2!1sen!2slk!4v1710221753294!5m2!1sen!2slk" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
       <div class="col-lg-4 md-4">
         <div class="bg-white p-4 rounded mb-4">
@@ -442,57 +333,55 @@
     </div>
   </div>
 
- <?php require('inc/footer.php'); ?>
+  <?php require('inc/footer.php'); ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var swiper = new Swiper(".swiper-container", {
-          spaceBetween: 30,
-          effect: "fade",
-          loop: true,
-          autoplay: {
-            delay: 3500,
-            disableOnInteraction: false,
-          },
-        });
-      });
-
-      var swiper = new Swiper(".swiper-testimonial", {
-        effect: "coverflow",
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: "auto",
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var swiper = new Swiper(".swiper-container", {
+        spaceBetween: 30,
+        effect: "fade",
         loop: true,
-        slidesPerView: "3",
-
-        coverflowEffect: {
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: false,
+        autoplay: {
+          delay: 3500,
+          disableOnInteraction: false,
         },
-        pagination: {
-          el: ".swiper-pagination",
-        },
-        breakpoints: {
-          320: {
-            slidesPerView: "1",
-          },
-          640: {
-            slidesPerView: "1",
-          },
-          768: {
-            slidesPerView: "2",
-          },
-          1024: {
-            slidesPerView: "3",
-          },
-        }
       });
-    </script>
+    });
+
+    var swiper = new Swiper(".swiper-testimonial", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: "auto",
+      loop: true,
+      slidesPerView: "3",
+
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: "1",
+        },
+        640: {
+          slidesPerView: "1",
+        },
+        768: {
+          slidesPerView: "2",
+        },
+        1024: {
+          slidesPerView: "3",
+        },
+      }
+    });
+  </script>
 </body>
 
 </html>
