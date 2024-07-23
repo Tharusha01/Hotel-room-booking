@@ -37,10 +37,10 @@
   $query = $con->prepare("SELECT * FROM `rooms` ORDER BY `id` DESC LIMIT 3");
   $query->execute();
   $result = $query->get_result();
-  
+
   $rooms = [];
   while ($row = $result->fetch_assoc()) {
-      $rooms[] = $row;
+    $rooms[] = $row;
   }
   ?>
 
@@ -69,21 +69,20 @@
     <div class="row">
       <div class="col-lg-12 bg-white shadow p-4 rounded">
         <h5 class="mb-4">Check Booking availability</h5>
-        <form>
+        <form method="post" action="check_availability.php">
           <div class="row align-items-end justify-content-end">
-            <!-- Updated this line -->
             <div class="col-lg-3 mb-3">
               <label class="form-label" style="font-weight: 500">Check In</label>
-              <input type="date" class="form-control shadow-none" />
+              <input type="date" name="checkin" class="form-control shadow-none" required />
             </div>
 
             <div class="col-lg-3 mb-3">
               <label class="form-label" style="font-weight: 500">Check Out</label>
-              <input type="date" class="form-control shadow-none" />
+              <input type="date" name="checkout" class="form-control shadow-none" required />
             </div>
             <div class="col-lg-3 mb-3">
               <label class="form-label" style="font-weight: 500">Adult</label>
-              <select class="form-select shadow-none">
+              <select name="adults" class="form-select shadow-none" required>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
@@ -92,7 +91,8 @@
 
             <div class="col-lg-3 mb-3">
               <label class="form-label" style="font-weight: 500">Children</label>
-              <select class="form-select shadow-none">
+              <select name="children" class="form-select shadow-none">
+                <option value="0">None</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
@@ -114,60 +114,60 @@
   <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">Our Rooms</h2>
   <div class="container">
     <div class="row justify-content-start">
-    <?php foreach ($rooms as $room) { ?>
-      <div class="col-lg-4 col-md-6 my-3">
-        <!-- Card 1 -->
-        <div class="card border-0 shadow" style="max-width: 310px; margin: auto">
-          <!-- Card Image -->
-          <img src="<?php echo filterationData($room['image']); ?>?raw=true" class="card-img-top" style="height: 200px; object-fit: cover" />
-          <div class="card-body">
-            <!-- Card Title -->
-            <h5 class="card-title"><?php echo filterationData($room['name']); ?></h5>
-            <h6>Rs.<?php echo filterationData($room['price']); ?>  per night</h6>
-            <!-- Features -->
-            <div class="features mb-4">
-              <h6 class="mb-2">Features</h6>
-              <span class="badge rounded-pill bg-light text-dark text-wrap">2 rooms</span>
-              <span class="badge rounded-pill bg-light text-dark text-wrap">1 bathroom</span>
-              <span class="badge rounded-pill bg-light text-dark text-wrap">1 Balcony</span>
-              <span class="badge rounded-pill bg-light text-dark text-wrap">3 Sofa</span>
-            </div>
-            <!-- Facilities -->
-            <div class="facilities mb-4">
+      <?php foreach ($rooms as $room) { ?>
+        <div class="col-lg-4 col-md-6 my-3">
+          <!-- Card 1 -->
+          <div class="card border-0 shadow" style="max-width: 310px; margin: auto">
+            <!-- Card Image -->
+            <img src="<?php echo filterationData($room['image']); ?>?raw=true" class="card-img-top" style="height: 200px; object-fit: cover" />
+            <div class="card-body">
+              <!-- Card Title -->
+              <h5 class="card-title"><?php echo filterationData($room['name']); ?></h5>
+              <h6>Rs.<?php echo filterationData($room['price']); ?> per night</h6>
+              <!-- Features -->
               <div class="features mb-4">
-                <h6 class="mb-2">Facilities</h6>
-                <span class="badge rounded-pill bg-light text-dark text-wrap">Wifi</span>
-                <span class="badge rounded-pill bg-light text-dark text-wrap">Television</span>
-                <span class="badge rounded-pill bg-light text-dark text-wrap">AC</span>
-                <span class="badge rounded-pill bg-light text-dark text-wrap">Room heater</span>
+                <h6 class="mb-2">Features</h6>
+                <span class="badge rounded-pill bg-light text-dark text-wrap">2 rooms</span>
+                <span class="badge rounded-pill bg-light text-dark text-wrap">1 bathroom</span>
+                <span class="badge rounded-pill bg-light text-dark text-wrap">1 Balcony</span>
+                <span class="badge rounded-pill bg-light text-dark text-wrap">3 Sofa</span>
               </div>
-            </div>
-            <!-- Guests-->
-            <div class="facilities mb-4">
-              <div class="features mb-4">
-                <h6 class="mb-2">Guests</h6>
-                <span class="badge rounded-pill bg-light text-dark text-wrap"><?php echo filterationData($room['adult']); ?> adults</span>
-                <span class="badge rounded-pill bg-light text-dark text-wrap"><?php echo filterationData($room['children']); ?> Children</span>
+              <!-- Facilities -->
+              <div class="facilities mb-4">
+                <div class="features mb-4">
+                  <h6 class="mb-2">Facilities</h6>
+                  <span class="badge rounded-pill bg-light text-dark text-wrap">Wifi</span>
+                  <span class="badge rounded-pill bg-light text-dark text-wrap">Television</span>
+                  <span class="badge rounded-pill bg-light text-dark text-wrap">AC</span>
+                  <span class="badge rounded-pill bg-light text-dark text-wrap">Room heater</span>
+                </div>
+              </div>
+              <!-- Guests-->
+              <div class="facilities mb-4">
+                <div class="features mb-4">
+                  <h6 class="mb-2">Guests</h6>
+                  <span class="badge rounded-pill bg-light text-dark text-wrap"><?php echo filterationData($room['adult']); ?> adults</span>
+                  <span class="badge rounded-pill bg-light text-dark text-wrap"><?php echo filterationData($room['children']); ?> Children</span>
 
+                </div>
               </div>
-            </div>
-            <!-- Rating -->
-            <div class="rating mb-4">
-              <h6>Rating</h6>
-              <h6 class="mb-1 text-warning"></h6>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-            </div>
-            <!-- Buttons -->
-            <div class="d-flex justify-content-between">
-              <a href="booking.php?room_id=<?php echo $room['id']; ?>" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
-              <a href="#" class="btn btn-sm btn-outline-dark shadow-none">More details</a>
+              <!-- Rating -->
+              <div class="rating mb-4">
+                <h6>Rating</h6>
+                <h6 class="mb-1 text-warning"></h6>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+              </div>
+              <!-- Buttons -->
+              <div class="d-flex justify-content-between">
+                <a href="booking.php?room_id=<?php echo $room['id']; ?>" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
+                <a href="#" class="btn btn-sm btn-outline-dark shadow-none">More details</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       <?php } ?>
     </div>
 
