@@ -162,7 +162,7 @@
             </div>
             <!-- Buttons -->
             <div class="d-flex justify-content-between">
-              <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
+              <a href="booking.php?room_id=<?php echo $room['id']; ?>" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
               <a href="#" class="btn btn-sm btn-outline-dark shadow-none">More details</a>
             </div>
           </div>
