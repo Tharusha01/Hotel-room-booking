@@ -1,9 +1,10 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 $hostname = "localhost";
 $username = "root";
-$password = "";
+$password = "reshan123";
 $db = "booking_db";
 
 $con = mysqli_connect($hostname, $username, $password, $db);
@@ -24,9 +25,11 @@ if (!function_exists('filteration')) {
     }
 }
 
-function filterationData($data)
-{
-    return htmlspecialchars(strip_tags(trim($data)));
+if (!function_exists('filterationData')) {
+    function filterationData($data)
+    {
+        return htmlspecialchars(strip_tags(trim($data)));
+    }
 }
 
 function selectAll($table)
