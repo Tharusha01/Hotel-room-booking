@@ -39,7 +39,7 @@ session_start();
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="profile.php">Profile</a></li>
               <li><a class="dropdown-item" href="booking.php">Booking</a></li>
-              <li><a class="dropdown-item" href="admin/logout.php">Logout</a></li>
+              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
             </ul>
           </div>
         <?php
