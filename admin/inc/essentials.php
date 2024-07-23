@@ -33,6 +33,16 @@ function adminLogin(){
     // session_regenerate_id(true);//this will generate new session id and will destroy the old one because session hijacking is a security risk.
 }
 
+function customerLogin(){
+    session_start();
+    if(!(isset($_SESSION['customerLogin'])&& $_SESSION['customerLogin']==true))
+    {
+        echo "<script>window.location.href='index.php'</script>";
+        exit;
+    }
+    // session_regenerate_id(true);//this will generate new session id and will destroy the old one because session hijacking is a security risk.
+}
+
 
 function redirect($url){
     echo "<script>window.location.href='$url'</script>";
