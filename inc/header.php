@@ -19,9 +19,6 @@ session_start();
           <a class="nav-link" href="rooms.php">Rooms</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="facilities.php">Facilities</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="contact.php">Contact Us</a>
         </li>
         <li class="nav-item">
@@ -37,8 +34,8 @@ session_start();
               <?php echo $_SESSION['customerName']; ?>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-              <li><a class="dropdown-item" href="booking.php">Booking</a></li>
+                <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+              <li><a class="dropdown-item" href="my_bookings.php">Booking</a></li>
               <li><a class="dropdown-item" href="logout.php">Logout</a></li>
             </ul>
           </div>

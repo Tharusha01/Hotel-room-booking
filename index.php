@@ -163,7 +163,6 @@
               <!-- Buttons -->
               <div class="d-flex justify-content-between">
                 <a href="booking.php?room_id=<?php echo $room['id']; ?>" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
-                <a href="#" class="btn btn-sm btn-outline-dark shadow-none">More details</a>
               </div>
             </div>
           </div>
@@ -175,7 +174,7 @@
 
     <div class="row justify-content-center mt-5">
       <div class="col-lg-4 col-md-6 text-center">
-        <a href="#" class="btn btn-sm btn-outline-dark rounded-0 shadow-none">More Rooms</a>
+        <a href="rooms.php" class="btn btn-sm btn-outline-dark rounded-0 shadow-none">More Rooms</a>
       </div>
     </div>
   </div>

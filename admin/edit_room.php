@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (update($query, $values, 'siiiiisi')) {
         if (!empty($image['name'])) {
-            $img_name = 'uploads/' . basename($image['name']);
+            $img_name = '../images/uploads/' . basename($image['name']);
             move_uploaded_file($image['tmp_name'], $img_name);
 
             $query = "UPDATE `rooms` SET `image`=? WHERE `id`=?";

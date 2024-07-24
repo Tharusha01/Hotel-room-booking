@@ -13,7 +13,6 @@
       <h5 class="mb-3">Links</h5>
       <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Home</a><br>
       <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Rooms</a><br>
-      <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Facilities</a><br>
       <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Testimonial</a><br>
       <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Contact</a><br>
       <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">About Us</a><br>
