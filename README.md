@@ -22,7 +22,7 @@ Admin Dashboard
 - 🚀 XAMPP (for local development)
 - 🚀 PHP
 - 🚀 MySQL
-- 🚀 Bootstrao
+- 🚀 Bootstrap
 
 ## Installation
 
@@ -61,7 +61,7 @@ Admin Dashboard
   - View and manage your bookings.
 
 - 🚀 **Admin:**
-  - Log in to the admin dashboard.
+  - Log in to the admin dashboard. 
   - Manage room details, including availability and pricing.
   - View and manage guest reservations.
   - Monitor inventory and receive notifications for low stock levels
