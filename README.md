@@ -22,6 +22,7 @@ Admin Dashboard
 - 🚀 XAMPP (for local development)
 - 🚀 PHP
 - 🚀 MySQL
+- 🚀 Bootstrao
 
 ## Installation
 
