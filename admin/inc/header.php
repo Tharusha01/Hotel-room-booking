@@ -1,5 +1,5 @@
 <div class="container-fluid bg-dark text-light p-3 d-flex justify-content-between align-items-center sticky-top">
-        <h3 class="mb-0">GoHiking-Admin</h3>
+        <h3 class="mb-0">My Hotel -Admin</h3>
         <a href="logout.php" class="btn btn-sm btn-light">Logout</a>
     </div>
 
